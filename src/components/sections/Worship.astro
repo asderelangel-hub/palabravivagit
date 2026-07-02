@@ -1,0 +1,17 @@
+---
+import { withBase } from "../../lib/base";
+// Banda visual: foto de adoración + versículo (respiro editorial)
+---
+<section class="relative overflow-hidden">
+  <div class="absolute inset-0 -z-10 photo-scrim">
+    <img src={withBase("/fotos/adoracion.jpg")} alt="Tiempo de adoración con las manos en alto" class="ph" loading="lazy" />
+  </div>
+  <div class="container-xl relative z-10 py-24 lg:py-36 text-center">
+    <div class="max-w-3xl mx-auto reveal">
+      <p class="pullquote text-white">
+        «La palabra de Dios es viva y eficaz.»
+      </p>
+      <p class="mt-5 eyebrow !text-[var(--color-sky)]">Hebreos 4:12</p>
+    </div>
+  </div>
+</section>

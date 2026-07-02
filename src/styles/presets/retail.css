@@ -1,0 +1,34 @@
+/* ============================================================
+   PRESET: RETAIL / COMERCIO
+   ============================================================
+   Para: tiendas físicas, boutiques, e-commerce pyme,
+         emprendimientos de moda, decoración, productos.
+   Personalidad: vibrante, alegre, invita a comprar, moderno
+                 pero accesible.
+
+   Características:
+   - Colores vivos pero no chillones (saturación media-alta)
+   - Tipografía display amistosa, body legible y moderno
+   - Radius generoso, look "friendly"
+   - Sombras visibles (productos flotan, cards elevadas)
+   - Acentos coloridos en CTAs (rompen la sobriedad)
+   ============================================================ */
+
+@theme {
+  --color-primary: #D63B6C;        /* magenta/rosa fuerte */
+  --color-secondary: #1F1B2E;
+  --color-accent: #4ED9B8;         /* turquesa amistoso */
+  --color-surface: #FEF9F4;        /* off-white cálido */
+  --color-ink: #1F1B2E;
+  --color-muted: #6B6680;
+
+  --font-display: "Recoleta", "Fraunces", Georgia, serif;
+  --font-body: "DM Sans", "Inter", system-ui, sans-serif;
+
+  --radius-card: 1.25rem;          /* generoso */
+  --radius-button: 9999px;         /* pill buttons */
+  --shadow-card: 0 12px 28px -8px rgb(31 27 46 / 0.18);
+
+  --space-section: 4.5rem;
+  --space-section-lg: 6.5rem;
+}

@@ -1,0 +1,98 @@
+---
+/**
+ * ServicesGrid — Grid de servicios/productos del cliente.
+ *
+ * Props:
+ *  - title, subtitle: encabezado de la sección
+ *  - services: array de servicios a mostrar
+ *  - variant: 'cards' (default) muestra cards elevadas | 'minimal'
+ *    muestra solo título+descripción separados por línea sutil.
+ *  - columns: 2 | 3 (default) | 4 — cuántas columnas en desktop
+ */
+
+interface Service {
+  title: string;
+  description: string;
+  image?: string;
+  iconSvg?: string;
+  href?: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  services: Service[];
+  variant?: "cards" | "minimal";
+  columns?: 2 | 3 | 4;
+  id?: string;
+}
+
+const {
+  title,
+  subtitle,
+  services,
+  variant = "cards",
+  columns = 3,
+  id,
+} = Astro.props;
+
+const columnsClass = {
+  2: "md:grid-cols-2",
+  3: "md:grid-cols-2 lg:grid-cols-3",
+  4: "md:grid-cols-2 lg:grid-cols-4",
+}[columns];
+---
+
+<section
+  id={id}
+  class="py-[var(--space-section)] lg:py-[var(--space-section-lg)] bg-[var(--color-surface)]"
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    {(title || subtitle) && (
+      <header class="max-w-3xl mb-10 lg:mb-16">
+        {title && <h2 class="text-3xl sm:text-4xl lg:text-5xl">{title}</h2>}
+        {subtitle && (
+          <p class="mt-4 text-lg text-[var(--color-muted)] leading-relaxed">
+            {subtitle}
+          </p>
+        )}
+      </header>
+    )}
+
+    <div class={`grid gap-6 lg:gap-8 ${columnsClass}`}>
+      {services.map((s) => {
+        const Tag = s.href ? "a" : "article";
+        const sharedClass =
+          variant === "cards"
+            ? "block p-6 lg:p-8 bg-white shadow-[var(--shadow-card)] rounded-[var(--radius-card)] transition hover:-translate-y-1"
+            : "block py-6 border-t border-[var(--color-muted)]/20";
+        return (
+          <Tag
+            href={s.href}
+            class={`${sharedClass} ${s.href ? "cursor-pointer" : ""}`}
+          >
+            {s.image && (
+              <img
+                src={s.image}
+                alt=""
+                class="w-full h-44 lg:h-52 object-cover rounded-[var(--radius-card)] mb-5"
+                loading="lazy"
+                decoding="async"
+              />
+            )}
+            {s.iconSvg && (
+              <div
+                class="text-[var(--color-primary)] w-10 h-10 mb-4"
+                set:html={s.iconSvg}
+              />
+            )}
+            <h3 class="text-xl lg:text-2xl mb-2">{s.title}</h3>
+            <p class="text-[var(--color-muted)] leading-relaxed">
+              {s.description}
+            </p>
+          </Tag>
+        );
+      })}
+    </div>
+  </div>
+</section>

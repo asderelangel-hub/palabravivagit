@@ -1,0 +1,86 @@
+---
+/**
+ * AboutSplit — Split asimétrico (texto + imagen) para "sobre nosotros",
+ * "nuestra historia", "quiénes somos".
+ *
+ * Asimetría intencional: por default texto 55% / imagen 45% en desktop.
+ * Invertir la posición de la imagen pasando `imageSide="left"`.
+ */
+
+interface Stat {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  eyebrow?: string;      // pequeño tag arriba del título
+  title: string;
+  body: string | string[];  // párrafos (1 string o array de varios)
+  image: string;
+  imageAlt?: string;
+  imageSide?: "left" | "right";
+  stats?: Stat[];        // contadores opcionales abajo
+  id?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  body,
+  image,
+  imageAlt = "",
+  imageSide = "right",
+  stats,
+  id,
+} = Astro.props;
+
+const paragraphs = Array.isArray(body) ? body : [body];
+const imageOrderClass =
+  imageSide === "left" ? "lg:order-first" : "lg:order-last";
+---
+
+<section
+  id={id}
+  class="py-[var(--space-section)] lg:py-[var(--space-section-lg)]"
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+      <div class="lg:col-span-7 max-w-2xl">
+        {eyebrow && (
+          <p class="text-sm uppercase tracking-[0.18em] text-[var(--color-primary)] mb-4 font-semibold">
+            {eyebrow}
+          </p>
+        )}
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl mb-6">{title}</h2>
+        <div class="space-y-4 text-lg text-[var(--color-ink)]/85 leading-relaxed">
+          {paragraphs.map((p) => <p>{p}</p>)}
+        </div>
+
+        {stats && stats.length > 0 && (
+          <dl class="mt-10 grid grid-cols-2 sm:grid-cols-3 gap-6 border-t border-[var(--color-muted)]/20 pt-8">
+            {stats.map((s) => (
+              <div>
+                <dt class="text-sm text-[var(--color-muted)] uppercase tracking-wide">
+                  {s.label}
+                </dt>
+                <dd class="font-display text-3xl sm:text-4xl text-[var(--color-primary)] mt-1">
+                  {s.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        )}
+      </div>
+
+      <div class={`lg:col-span-5 ${imageOrderClass}`}>
+        <img
+          src={image}
+          alt={imageAlt}
+          class="w-full aspect-[4/5] object-cover rounded-[var(--radius-card)] shadow-[var(--shadow-card)]"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,73 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "./Header.astro";
+import Footer from "./Footer.astro";
+import { withBase } from "../lib/base";
+import { getContent, localizePath, type Lang } from "../i18n/content";
+
+interface Props { lang?: Lang; type: "blog" | "devocionales"; }
+const { lang = "es", type } = Astro.props;
+const ui = getContent(lang).blogUI;
+const isBlog = type === "blog";
+const title = isBlog ? ui.blogTitle : ui.devoTitle;
+const subtitle = isBlog ? ui.blogSubtitle : ui.devoSubtitle;
+const locale = { es: "es-CL", en: "en-US", pt: "pt-BR" }[lang];
+
+const entries = (await getCollection(type, ({ id, data }) => !data.draft && id.startsWith(lang + "/")))
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+function slugOf(id: string) { return id.replace(/^(es|en|pt)\//, ""); }
+const fmt = (d: Date) => d.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
+---
+<BaseLayout title={`${title} — JUCUM Palabra Viva`} description={subtitle} lang={lang}>
+  <Header lang={lang} />
+  <main>
+    <section class="relative overflow-hidden">
+      <div class="absolute inset-0 -z-10 photo-scrim">
+        <img src={withBase(isBlog ? "/fotos/comunidad.jpg" : "/fotos/biblia-manos.jpg")} alt="" class="ph" />
+      </div>
+      <div class="container-xl relative z-10 pt-36 pb-16 lg:pt-44 lg:pb-20 text-white">
+        <p class="eyebrow !text-white/85 mb-4">{isBlog ? "JUCUM Palabra Viva" : (getContent(lang).nav.devocionales)}</p>
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-white">{title}</h1>
+        <p class="mt-4 text-lg text-white/85 max-w-2xl">{subtitle}</p>
+      </div>
+    </section>
+
+    <section class="py-[var(--space-section)] lg:py-[var(--space-section-lg)] bg-[var(--color-surface)]">
+      <div class="container-xl">
+        {entries.length === 0 ? (
+          <p class="text-center text-[var(--color-muted)]">{ui.empty}</p>
+        ) : (
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {entries.map((e) => {
+              const href = withBase(localizePath(`/${type}/${slugOf(e.id)}`, lang));
+              const cover = e.data.cover ? (e.data.cover.startsWith("/") ? e.data.cover : "/" + e.data.cover) : null;
+              const tagText = isBlog ? e.data.category : e.data.reference;
+              return (
+                <a href={href} class="card-lift bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-soft)] overflow-hidden flex flex-col group">
+                  <div class="relative aspect-[16/10] overflow-hidden bg-[var(--color-sky-soft)]">
+                    {cover
+                      ? <img src={withBase(cover)} alt={e.data.title} class="ph" loading="lazy" />
+                      : <img src={withBase(isBlog ? "/fotos/estudio-mesa.jpg" : "/fotos/leyendo.jpg")} alt="" class="ph opacity-90" loading="lazy" />}
+                    {tagText && <span class="tag-badge">{tagText}</span>}
+                  </div>
+                  <div class="p-5 flex flex-col flex-1">
+                    <time class="text-xs text-[var(--color-muted)]">{fmt(e.data.pubDate)}</time>
+                    <h2 class="mt-1 font-display font-bold text-lg leading-snug group-hover:text-[var(--color-primary)] transition-colors">{e.data.title}</h2>
+                    <p class="mt-2 text-[var(--color-muted)] text-[0.92rem] leading-relaxed flex-1">{e.data.description}</p>
+                    <span class="mt-4 inline-flex items-center gap-1.5 font-display font-semibold text-[var(--color-primary)] text-sm">
+                      {ui.readMore}
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-1"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </span>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </section>
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>

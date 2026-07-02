@@ -1,0 +1,10 @@
+---
+import { getCollection } from "astro:content";
+import PagePost from "../../../components/PagePost.astro";
+export async function getStaticPaths() {
+  const entries = await getCollection("blog", ({ id, data }) => !data.draft && id.startsWith("pt/"));
+  return entries.map((entry) => ({ params: { slug: entry.id.replace(/^pt\//, "") }, props: { entry } }));
+}
+const { entry } = Astro.props;
+---
+<PagePost lang="pt" type="blog" entry={entry} />

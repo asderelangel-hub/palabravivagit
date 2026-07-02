@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { withBase } from "../lib/base";
+---
+<BaseLayout
+  title="¡Gracias! — JUCUM Palabra Viva"
+  description="Recibimos tu mensaje. Te responderemos a la brevedad."
+  noIndex={true}
+>
+  <Header solid={true} />
+  <main class="min-h-[70vh] flex items-center bg-[var(--color-sky-soft)] pt-[4.6rem]">
+    <div class="container-xl py-24 text-center max-w-2xl mx-auto">
+      <span class="mx-auto mb-6 w-20 h-20 rounded-full bg-white shadow-[var(--shadow-soft)] flex items-center justify-center">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      </span>
+      <h1 class="text-4xl sm:text-5xl font-bold">¡Gracias por escribirnos!</h1>
+      <p class="mt-5 text-lg text-[var(--color-muted)] leading-relaxed">
+        Recibimos tu mensaje y te responderemos a la brevedad. Que la Palabra de Dios
+        te acompañe mientras tanto.
+      </p>
+      <a href={withBase("/")} class="btn btn-primary mt-8">Volver al inicio</a>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

@@ -1,0 +1,120 @@
+---
+/**
+ * LocationMap — Mapa embebido (Google Maps iframe) + dirección,
+ * horarios y datos. Ideal para negocios con local físico.
+ *
+ * El mapEmbedUrl es la URL completa del iframe de Google Maps
+ * (Compartir → Insertar mapa). NO la URL del browser.
+ */
+
+interface Hours {
+  /** Etiqueta del día/rango. Ej: "Lunes a Viernes" */
+  label: string;
+  /** Horario. Ej: "9:00 - 18:00" o "Cerrado" */
+  hours: string;
+}
+
+interface Props {
+  title?: string;
+  address: string;
+  /** URL del iframe de Google Maps (la que da "Compartir → Insertar mapa") */
+  mapEmbedUrl: string;
+  hours?: Hours[];
+  phoneRaw?: string;
+  phoneDisplay?: string;
+  /** Texto del CTA hacia el mapa externo. Default: "Cómo llegar" */
+  directionsLabel?: string;
+  /** URL absoluta del mapa (ej share link). Sólo se muestra si está. */
+  directionsHref?: string;
+  id?: string;
+}
+
+const {
+  title = "Visítanos",
+  address,
+  mapEmbedUrl,
+  hours,
+  phoneRaw,
+  phoneDisplay,
+  directionsLabel = "Cómo llegar",
+  directionsHref,
+  id,
+} = Astro.props;
+---
+
+<section
+  id={id}
+  class="py-[var(--space-section)] lg:py-[var(--space-section-lg)] bg-[var(--color-surface)]"
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">
+      <div class="lg:col-span-2">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl mb-6">{title}</h2>
+
+        <address class="not-italic space-y-5">
+          <div>
+            <p class="text-sm uppercase tracking-wide text-[var(--color-muted)] mb-1">
+              Dirección
+            </p>
+            <p class="text-lg">{address}</p>
+          </div>
+
+          {phoneRaw && (
+            <div>
+              <p class="text-sm uppercase tracking-wide text-[var(--color-muted)] mb-1">
+                Teléfono
+              </p>
+              <a
+                href={`tel:${phoneRaw}`}
+                class="text-lg text-[var(--color-primary)] hover:underline"
+              >
+                {phoneDisplay ?? phoneRaw}
+              </a>
+            </div>
+          )}
+
+          {hours && hours.length > 0 && (
+            <div>
+              <p class="text-sm uppercase tracking-wide text-[var(--color-muted)] mb-2">
+                Horarios
+              </p>
+              <dl class="space-y-1">
+                {hours.map((h) => (
+                  <div class="flex gap-4">
+                    <dt class="w-40 shrink-0">{h.label}</dt>
+                    <dd class="text-[var(--color-ink)]/80">{h.hours}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          )}
+
+          {directionsHref && (
+            <a
+              href={directionsHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block mt-2 text-[var(--color-primary)] font-semibold hover:underline"
+            >
+              {directionsLabel} →
+            </a>
+          )}
+        </address>
+      </div>
+
+      <div class="lg:col-span-3">
+        <div class="aspect-[4/3] rounded-[var(--radius-card)] overflow-hidden shadow-[var(--shadow-card)]">
+          <iframe
+            src={mapEmbedUrl}
+            class="w-full h-full"
+            style="border:0"
+            allowfullscreen={false}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title={`Mapa de ${address}`}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

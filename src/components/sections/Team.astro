@@ -1,0 +1,27 @@
+---
+import { getContent, type Lang } from "../../i18n/content";
+const { lang = "es" } = Astro.props as { lang?: Lang };
+const t = getContent(lang).team;
+---
+<section class="py-[var(--space-section)] lg:py-[var(--space-section-lg)] bg-white">
+  <div class="container-xl">
+    <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+      <p class="eyebrow mb-4">{t.eyebrow}</p>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold">{t.heading}</h2>
+      <p class="mt-4 text-[var(--color-muted)]">{t.sub}</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+      {t.members.map((m) => (
+        <article class="card-lift bg-[var(--color-sky-soft)] rounded-[var(--radius-card)] p-8 text-center border border-[color:color-mix(in_srgb,var(--color-primary)_10%,transparent)]">
+          <span class="mx-auto mb-4 w-24 h-24 rounded-full bg-white flex items-center justify-center shadow-[var(--shadow-soft)]">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-sky)" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+          </span>
+          <h3 class="font-display font-bold text-lg text-[var(--color-ink)]">{m.name}</h3>
+          <p class="text-sm text-[var(--color-primary)] font-semibold mt-1">{m.role}</p>
+        </article>
+      ))}
+    </div>
+    <p class="mt-8 text-center text-sm text-[var(--color-muted)]">{t.note}</p>
+  </div>
+</section>

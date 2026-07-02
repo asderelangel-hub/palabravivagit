@@ -1,0 +1,81 @@
+---
+/**
+ * CTABanner — Banner full-width con color del brand, headline grande
+ * y un CTA principal (o dos máximo).
+ *
+ * Va típicamente al final del index, antes del footer. Pensado como
+ * "última oportunidad" de conversión en la página.
+ */
+
+interface CTA {
+  label: string;
+  href: string;
+  primary?: boolean;
+}
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  ctas: CTA[];
+  /** Estilo del banner: 'solid' usa color primary lleno (default),
+   *  'minimal' usa surface con borde top accent. */
+  style?: "solid" | "minimal";
+  id?: string;
+}
+
+const { title, subtitle, ctas, style = "solid", id } = Astro.props;
+---
+
+<section
+  id={id}
+  class={
+    style === "solid"
+      ? "py-16 lg:py-24 bg-[var(--color-primary)] text-white"
+      : "py-16 lg:py-24 bg-[var(--color-surface)] border-t-4 border-[var(--color-accent)]"
+  }
+>
+  <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
+    <h2
+      class={
+        style === "solid"
+          ? "text-3xl sm:text-4xl lg:text-5xl text-white"
+          : "text-3xl sm:text-4xl lg:text-5xl"
+      }
+    >
+      {title}
+    </h2>
+    {subtitle && (
+      <p
+        class={
+          style === "solid"
+            ? "mt-4 text-lg lg:text-xl text-white/90 max-w-2xl mx-auto"
+            : "mt-4 text-lg lg:text-xl text-[var(--color-muted)] max-w-2xl mx-auto"
+        }
+      >
+        {subtitle}
+      </p>
+    )}
+
+    <div class="mt-8 lg:mt-10 flex flex-col sm:flex-row gap-3 justify-center">
+      {ctas.map((cta) => {
+        const isPrimary = cta.primary ?? true;
+        const cls =
+          style === "solid"
+            ? isPrimary
+              ? "bg-white text-[var(--color-primary)] hover:bg-[var(--color-accent)]"
+              : "border-2 border-white text-white hover:bg-white/10"
+            : isPrimary
+              ? "bg-[var(--color-primary)] text-white hover:bg-[var(--color-secondary)]"
+              : "border-2 border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white";
+        return (
+          <a
+            href={cta.href}
+            class={`inline-block px-7 py-3.5 font-semibold rounded-[var(--radius-button)] transition ${cls}`}
+          >
+            {cta.label}
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</section>

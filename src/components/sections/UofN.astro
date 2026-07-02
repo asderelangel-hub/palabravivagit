@@ -1,0 +1,32 @@
+---
+import { withBase } from "../../lib/base";
+import { getContent, localizePath, type Lang } from "../../i18n/content";
+const { lang = "es" } = Astro.props as { lang?: Lang };
+const t = getContent(lang).uofn;
+const homeHref = withBase(localizePath("/", lang));
+---
+<section id="uofn" class="py-[var(--space-section)] lg:py-[var(--space-section-lg)] bg-[var(--color-sky-soft)]">
+  <div class="container-xl">
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+      <div class="lg:col-span-5 reveal">
+        <p class="eyebrow mb-5">{t.eyebrow}</p>
+        <img src={withBase("/uofn.png")} alt="University of the Nations" class="h-16 w-auto mb-6" loading="lazy" />
+        <p class="text-lg text-[var(--color-muted)] leading-relaxed">{t.intro}</p>
+        <div class="rule-accent mt-8"></div>
+      </div>
+
+      <div class="lg:col-span-7 reveal grid sm:grid-cols-2 gap-6">
+        {t.offerings.map((o, i) => (
+          <div class="bg-white rounded-[var(--radius-card)] p-7 border border-[color:color-mix(in_srgb,var(--color-primary)_14%,transparent)] shadow-[var(--shadow-soft)]">
+            <span class="bignum text-2xl">{String(i + 1).padStart(2, "0")}</span>
+            <h3 class="text-xl font-bold mt-2 mb-2">{o.title}</h3>
+            <p class="text-[var(--color-muted)] leading-relaxed">{o.desc}</p>
+          </div>
+        ))}
+        <div class="sm:col-span-2">
+          <a href={`${homeHref}#contacto`} class="btn btn-primary">{t.cta}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,39 @@
+---
+import { withBase } from "../../lib/base";
+// "Pobreza bíblica" — split editorial con foto real (sin blobs/gradientes)
+---
+<section class="bg-[var(--color-sky-soft)]">
+  <div class="grid lg:grid-cols-2">
+    <!-- Foto a sangre -->
+    <div class="relative min-h-[22rem] lg:min-h-[38rem] order-1">
+      <img src={withBase("/fotos/comunidad.jpg")} alt="Comunidad estudiando la Biblia" class="ph absolute inset-0" loading="lazy" />
+    </div>
+
+    <!-- Texto -->
+    <div class="order-2 flex items-center px-6 sm:px-10 lg:px-16 py-14 lg:py-24">
+      <div class="max-w-xl reveal">
+        <p class="eyebrow mb-5">Nuestra causa</p>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
+          ¿Qué es la<br /><span class="text-[var(--color-primary)]">pobreza bíblica</span>?
+        </h2>
+        <p class="mt-6 text-lg text-[var(--color-muted)] leading-relaxed">
+          Millones de personas no tienen acceso a la Biblia en un idioma o en un
+          formato que puedan comprender. A eso llamamos pobreza bíblica.
+        </p>
+        <p class="mt-4 text-lg text-[var(--color-muted)] leading-relaxed">
+          Nuestra tarea es acortar esa distancia —traduciendo, enseñando y
+          formando— para que nadie quede sin escuchar la Palabra de Dios.
+        </p>
+
+        <figure class="mt-9 border-l-2 border-[var(--color-accent)] pl-5">
+          <blockquote class="pullquote text-[var(--color-ink)]">
+            «De su interior correrán ríos de agua viva.»
+          </blockquote>
+          <figcaption class="mt-2 eyebrow">Juan 7:38</figcaption>
+        </figure>
+
+        <a href="#mision" class="btn btn-primary mt-9">Cómo lo hacemos</a>
+      </div>
+    </div>
+  </div>
+</section>

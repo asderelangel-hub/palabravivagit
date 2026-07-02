@@ -1,0 +1,54 @@
+---
+import { withBase } from "../../lib/base";
+import { getContent, localizePath, type Lang } from "../../i18n/content";
+const { lang = "es" } = Astro.props as { lang?: Lang };
+const t = getContent(lang).servir;
+const homeHref = withBase(localizePath("/", lang));
+---
+<!-- Encabezado con foto -->
+<section class="relative overflow-hidden">
+  <div class="absolute inset-0 -z-10 photo-scrim">
+    <img src={withBase("/fotos/comunidad.jpg")} alt="" class="ph" />
+  </div>
+  <div class="container-xl relative z-10 pt-36 pb-20 lg:pt-44 lg:pb-28 text-white">
+    <div class="max-w-3xl">
+      <p class="eyebrow !text-white/85 mb-5">{t.eyebrow}</p>
+      <h1 class="text-4xl sm:text-5xl lg:text-[3.5rem] font-extrabold leading-tight text-white">{t.heading}</h1>
+      <p class="mt-6 text-lg text-white/85 leading-relaxed">{t.intro}</p>
+    </div>
+  </div>
+</section>
+
+<!-- Tiers -->
+<section class="py-[var(--space-section)] lg:py-[var(--space-section-lg)] bg-white">
+  <div class="container-xl">
+    <div class="grid sm:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
+      {t.tiers.map((tier, i) => (
+        <article class="reveal flex flex-col rounded-[var(--radius-card)] border border-[color:color-mix(in_srgb,var(--color-primary)_14%,transparent)] bg-[var(--color-sky-soft)] p-8 shadow-[var(--shadow-soft)]">
+          <span class="bignum text-4xl">{String(i + 1).padStart(2, "0")}</span>
+          <h2 class="mt-3 text-2xl font-bold">{tier.title}</h2>
+          <hr class="rule my-4" />
+          <p class="text-[var(--color-muted)] leading-relaxed flex-1">{tier.desc}</p>
+          {tier.requisitos.length > 0 && (
+            <div class="mt-6">
+              <p class="eyebrow !text-[var(--color-primary)] mb-3">{t.reqLabel}</p>
+              <ul class="space-y-2">
+                {tier.requisitos.map((r) => (
+                  <li class="flex items-start gap-2.5 text-[var(--color-ink)] text-[0.95rem]">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 mt-0.5"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>{r}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-14 text-center reveal">
+      <a href={`${homeHref}#contacto`} class="btn btn-primary">{t.cta}</a>
+      <div class="mt-6"><a href={homeHref} class="text-[var(--color-primary)] font-semibold text-sm">{t.back}</a></div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,22 @@
+---
+import { steps } from "../../data/site";
+---
+<section class="py-[var(--space-section)] lg:py-[var(--space-section-lg)] bg-[var(--color-sky-soft)]">
+  <div class="container-xl">
+    <div class="max-w-3xl reveal mb-12">
+      <p class="eyebrow mb-5">Da el paso</p>
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold">Tu camino en la Palabra, en 4 pasos.</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10 reveal">
+      {steps.map((s, i) => (
+        <div>
+          <span class="bignum text-4xl block">{String(i + 1).padStart(2, "0")}</span>
+          <hr class="rule my-4" />
+          <h3 class="text-lg font-bold mb-2">{s.title}</h3>
+          <p class="text-[var(--color-muted)] leading-relaxed text-[0.95rem]">{s.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

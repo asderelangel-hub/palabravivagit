@@ -1,0 +1,17 @@
+---
+import { getContent, type Lang } from "../../i18n/content";
+const { lang = "es" } = Astro.props as { lang?: Lang };
+const trust = getContent(lang).trust;
+---
+<section class="bg-white">
+  <div class="container-xl py-6">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4 sm:gap-10 text-center">
+      {trust.map((tItem) => (
+        <div class="flex items-center justify-center gap-2.5">
+          <span class="font-display text-lg font-bold text-[var(--color-primary)]">{tItem.value}</span>
+          <span class="text-sm text-[var(--color-muted)]">{tItem.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

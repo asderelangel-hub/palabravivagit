@@ -1,0 +1,56 @@
+---
+/**
+ * WorkflowSteps — "Cómo trabajamos" o "El proceso" en N pasos
+ * numerados. Útil para servicios donde el flujo no es obvio.
+ *
+ * Layout: horizontal en desktop con números grandes, vertical en
+ * mobile como timeline.
+ */
+
+interface Step {
+  title: string;
+  description: string;
+}
+
+interface Props {
+  title?: string;
+  intro?: string;
+  steps: Step[];
+  id?: string;
+}
+
+const { title = "Cómo trabajamos", intro, steps, id } = Astro.props;
+---
+
+<section
+  id={id}
+  class="py-[var(--space-section)] lg:py-[var(--space-section-lg)]"
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <header class="max-w-2xl mb-10 lg:mb-14">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl">{title}</h2>
+      {intro && (
+        <p class="mt-4 text-lg text-[var(--color-muted)] leading-relaxed">
+          {intro}
+        </p>
+      )}
+    </header>
+
+    <ol class="grid gap-8 md:gap-10 md:grid-cols-2 lg:grid-cols-4 relative">
+      {steps.map((step, i) => (
+        <li class="relative">
+          <span
+            aria-hidden="true"
+            class="block font-display text-6xl lg:text-7xl text-[var(--color-primary)] mb-3 leading-none"
+          >
+            {String(i + 1).padStart(2, "0")}
+          </span>
+          <h3 class="text-xl lg:text-2xl mb-2">{step.title}</h3>
+          <p class="text-[var(--color-muted)] leading-relaxed">
+            {step.description}
+          </p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

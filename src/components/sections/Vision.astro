@@ -1,0 +1,41 @@
+---
+import { withBase } from "../../lib/base";
+import { visionPillars } from "../../data/site";
+---
+<section id="quienes" class="py-[var(--space-section)] lg:py-[var(--space-section-lg)] bg-white">
+  <div class="container-xl">
+
+    <!-- Manifiesto: texto + foto -->
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+      <div class="lg:col-span-7 reveal">
+        <p class="eyebrow mb-5">Quiénes somos</p>
+        <p class="lead">
+          Creemos en el poder transformador de la Biblia. Somos una base de
+          <span class="text-[var(--color-primary)] font-semibold">Juventud con una Misión</span>
+          en Temuco, donde la Palabra se <span class="italic">estudia</span>, se vive y se comparte
+          —para que llegue, viva y comprensible, a cada persona y cada pueblo.
+        </p>
+        <div class="rule-accent mt-8"></div>
+      </div>
+      <div class="lg:col-span-5 reveal">
+        <div class="relative aspect-[4/5] overflow-hidden rounded-[var(--radius-card)] shadow-[var(--shadow-card)]">
+          <img src={withBase("/fotos/leyendo.jpg")} alt="Dos personas leyendo la Biblia" class="ph" loading="lazy" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Pilares en fila editorial (sin tarjetas con iconos en gradiente) -->
+    <div class="mt-16 lg:mt-24 grid md:grid-cols-3 gap-x-10 gap-y-12">
+      {visionPillars.map((p, i) => (
+        <div class="reveal">
+          <div class="flex items-baseline gap-3 mb-3">
+            <span class="bignum text-2xl">{String(i + 1).padStart(2, "0")}</span>
+            <h3 class="text-2xl font-bold">{p.title}</h3>
+          </div>
+          <hr class="rule mb-4" />
+          <p class="text-[var(--color-muted)] leading-relaxed">{p.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

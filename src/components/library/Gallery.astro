@@ -1,0 +1,71 @@
+---
+/**
+ * Gallery — Galería tipo masonry irregular para mostrar trabajos
+ * realizados, proyectos, casos, productos.
+ *
+ * Clave: fotos REALES del cliente. Si no las tenés, conseguilas
+ * antes de poner cualquier cosa acá. NUNCA stock.
+ *
+ * Layout: CSS columns para masonry verdadero (no grid uniforme).
+ */
+
+interface Item {
+  src: string;
+  alt: string;
+  caption?: string;
+  /** Aspect ratio sugerido para layout natural ("portrait" más alto, "landscape" más ancho) */
+  aspect?: "portrait" | "landscape" | "square";
+}
+
+interface Props {
+  title?: string;
+  intro?: string;
+  items: Item[];
+  id?: string;
+}
+
+const { title, intro, items, id } = Astro.props;
+
+const aspectClass = {
+  portrait: "aspect-[3/4]",
+  landscape: "aspect-[4/3]",
+  square: "aspect-square",
+};
+---
+
+<section
+  id={id}
+  class="py-[var(--space-section)] lg:py-[var(--space-section-lg)]"
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    {(title || intro) && (
+      <header class="max-w-2xl mb-10 lg:mb-14">
+        {title && <h2 class="text-3xl sm:text-4xl lg:text-5xl">{title}</h2>}
+        {intro && (
+          <p class="mt-4 text-lg text-[var(--color-muted)] leading-relaxed">
+            {intro}
+          </p>
+        )}
+      </header>
+    )}
+
+    <div class="columns-1 sm:columns-2 lg:columns-3 gap-4 lg:gap-6 [column-fill:_balance]">
+      {items.map((item) => (
+        <figure class="mb-4 lg:mb-6 break-inside-avoid">
+          <img
+            src={item.src}
+            alt={item.alt}
+            class={`w-full ${aspectClass[item.aspect ?? "landscape"]} object-cover rounded-[var(--radius-card)]`}
+            loading="lazy"
+            decoding="async"
+          />
+          {item.caption && (
+            <figcaption class="mt-2 text-sm text-[var(--color-muted)]">
+              {item.caption}
+            </figcaption>
+          )}
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>

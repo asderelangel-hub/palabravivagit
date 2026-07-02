@@ -1,0 +1,36 @@
+/* ============================================================
+   PRESET: GASTRONOMÍA
+   ============================================================
+   Para: restaurantes, cafeterías, panaderías, food trucks,
+         pastelerías, delivery especializado.
+   Personalidad: cálido, apetitoso, sensorial, acogedor,
+                 invita a quedarse.
+
+   Características:
+   - Colores cálidos (terracota, mostaza, crema)
+   - Tipografía display con personalidad (serif elegante o
+     handwritten controlado)
+   - Radius generoso (friendly, acoge)
+   - Sombras suaves
+   - Foco fuerte en fotografía (asumir que el cliente trae
+     fotos del plato/local — si no, conseguirlas como sea)
+   ============================================================ */
+
+@theme {
+  --color-primary: #B4541A;        /* terracota tostada */
+  --color-secondary: #2C1810;      /* café oscuro */
+  --color-accent: #E8A93C;         /* mostaza dorada */
+  --color-surface: #FBF6EE;        /* crema cálida */
+  --color-ink: #2C1810;
+  --color-muted: #6B5444;
+
+  --font-display: "Fraunces", "Playfair Display", Georgia, serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  --radius-card: 1rem;
+  --radius-button: 0.625rem;
+  --shadow-card: 0 8px 24px -8px rgb(44 24 16 / 0.15);
+
+  --space-section: 4.5rem;
+  --space-section-lg: 7rem;
+}

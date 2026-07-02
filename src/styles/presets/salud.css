@@ -1,0 +1,35 @@
+/* ============================================================
+   PRESET: SALUD / BIENESTAR
+   ============================================================
+   Para: clínicas dentales, centros médicos, kinesiólogos,
+         psicólogos, fonoaudiólogos, nutricionistas, spas.
+   Personalidad: limpio, confiable, sereno, profesional sin
+                 ser frío, transmite cuidado.
+
+   Características:
+   - Paleta clara con dominantes en azules/verdes calmantes
+   - Tipografía: sans clean para titulos, sans para body
+     (legibilidad por encima de todo)
+   - Radius medio, suave
+   - Sombras suaves casi imperceptibles
+   - Mucho espacio en blanco (relajación visual)
+   ============================================================ */
+
+@theme {
+  --color-primary: #2A7F8C;        /* verde-azul calmante */
+  --color-secondary: #14323D;
+  --color-accent: #E8B468;         /* dorado cálido suave */
+  --color-surface: #F5F9F9;        /* casi blanco con tinte */
+  --color-ink: #14323D;
+  --color-muted: #6B7F87;
+
+  --font-display: "GT America", "Söhne", "Inter Tight", system-ui, sans-serif;
+  --font-body: "Söhne", "IBM Plex Sans", system-ui, sans-serif;
+
+  --radius-card: 0.875rem;
+  --radius-button: 0.5rem;
+  --shadow-card: 0 2px 12px -4px rgb(20 50 61 / 0.06);
+
+  --space-section: 5rem;
+  --space-section-lg: 7.5rem;
+}

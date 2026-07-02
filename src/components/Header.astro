@@ -1,0 +1,111 @@
+---
+import { withBase } from "../lib/base";
+import { site } from "../data/site";
+import { getContent, langs, langLabels, localizePath, defaultLang, type Lang } from "../i18n/content";
+
+const { lang = "es", solid = false } = Astro.props as { lang?: Lang; solid?: boolean };
+const t = getContent(lang);
+
+const homeHref = withBase(localizePath("/", lang));
+const nav = [
+  { label: t.nav.quienes, href: `${homeHref}#quienes` },
+  { label: t.nav.escuelas, href: `${homeHref}#escuelas` },
+  { label: t.nav.servir, href: withBase(localizePath("/servir", lang)) },
+  { label: t.nav.blog, href: withBase(localizePath("/blog", lang)) },
+  { label: t.nav.devocionales, href: withBase(localizePath("/devocionales", lang)) },
+  { label: t.nav.contacto, href: `${homeHref}#contacto` },
+];
+
+// Toggle de idioma: misma página en cada idioma
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
+let rel = Astro.url.pathname.slice(BASE.length) || "/";
+rel = rel.replace(/^\/(en|pt)(?=\/|$)/, "") || "/";
+const langHref = (l: Lang) => withBase(l === defaultLang ? (rel || "/") : `/${l}${rel === "/" ? "" : rel}`);
+---
+
+<header id="site-header" class:list={["fixed top-0 inset-x-0 z-50 transition-colors duration-300", { "is-scrolled": solid }]} data-header data-solid={solid ? "" : undefined}>
+  <div class="container-xl">
+    <div class="flex items-center justify-between gap-4 h-[4.6rem]">
+      <a href={homeHref} class="flex items-center shrink-0" aria-label={site.name}>
+        <span class="relative block h-9 sm:h-10">
+          <img src={withBase("/logo-white.png")} alt={site.name} class="h-full w-auto transition-opacity duration-300" data-logo-light />
+          <img src={withBase("/logo.png")} alt={site.name} class="h-full w-auto absolute inset-0 opacity-0 transition-opacity duration-300" data-logo-dark />
+        </span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-5" aria-label="Principal" data-nav>
+        {nav.map((n, i) => (
+          <>
+            {i > 0 && <span class="w-1 h-1 rounded-full bg-[var(--color-accent)] opacity-70" aria-hidden="true"></span>}
+            <a href={n.href} class="text-[0.95rem] font-medium transition-colors" data-navlink>{n.label}</a>
+          </>
+        ))}
+      </nav>
+
+      <div class="flex items-center gap-2.5">
+        <!-- Toggle de idioma -->
+        <div class="hidden sm:flex items-center gap-1 text-sm font-semibold" data-langtoggle>
+          {langs.map((l, i) => (
+            <>
+              {i > 0 && <span class="opacity-40" data-navlink>/</span>}
+              <a href={langHref(l)} class={`transition-colors ${l === lang ? "font-bold" : "opacity-70 hover:opacity-100"}`} data-navlink aria-current={l === lang ? "true" : undefined}>{langLabels[l]}</a>
+            </>
+          ))}
+        </div>
+        <a href={`${homeHref}#contacto`} class="btn hidden sm:inline-flex text-sm !py-2.5 !px-4" data-cta>{t.nav.postula}</a>
+        <button type="button" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg transition-colors" aria-label="Menú" aria-expanded="false" data-menu-btn data-navlink>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="md:hidden hidden mb-3 rounded-[var(--radius-card)] bg-white shadow-[var(--shadow-soft)] p-4" data-mobile-menu>
+      <nav class="flex flex-col gap-1" aria-label="Menú móvil">
+        {nav.map((n) => (
+          <a href={n.href} class="px-3 py-2.5 rounded-lg font-medium text-[var(--color-ink)]/85 hover:bg-[var(--color-sky-soft)]" data-mobile-link>{n.label}</a>
+        ))}
+        <div class="flex items-center gap-2 px-3 py-2.5 mt-1 border-t border-[var(--color-sky)]/40">
+          {langs.map((l) => (
+            <a href={langHref(l)} class={`text-sm font-semibold px-2 py-1 rounded ${l === lang ? "bg-[var(--color-primary)] text-white" : "text-[var(--color-ink)]/70"}`}>{langLabels[l]}</a>
+          ))}
+        </div>
+        <a href={`${homeHref}#contacto`} class="btn btn-primary mt-2 w-full" data-mobile-link>{t.nav.postula}</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<style>
+  [data-header] { background: transparent; }
+  [data-header] [data-navlink] { color: rgba(255,255,255,.9); }
+  [data-header] [data-navlink]:hover { color: #fff; }
+  [data-header] [data-cta] { background: rgba(255,255,255,.14); color: #fff; border: 1.5px solid rgba(255,255,255,.45); backdrop-filter: blur(4px); }
+  [data-header] [data-cta]:hover { background: rgba(255,255,255,.24); }
+  [data-header].is-scrolled { background: #fff; box-shadow: var(--shadow-soft); }
+  [data-header].is-scrolled [data-logo-light] { opacity: 0; }
+  [data-header].is-scrolled [data-logo-dark] { opacity: 1; }
+  [data-header].is-scrolled [data-navlink] { color: color-mix(in srgb, var(--color-ink) 80%, transparent); }
+  [data-header].is-scrolled [data-navlink]:hover { color: var(--color-primary); }
+  [data-header].is-scrolled [data-cta] { background: var(--color-primary); color: #fff; border: 1.5px solid var(--color-primary); box-shadow: 0 10px 24px -12px rgb(0 149 200 / .6); }
+  [data-header].is-scrolled [data-cta]:hover { background: #007ba8; }
+</style>
+
+<script is:inline>
+  (function () {
+    const header = document.querySelector("[data-header]");
+    const btn = document.querySelector("[data-menu-btn]");
+    const menu = document.querySelector("[data-mobile-menu]");
+    const forceSolid = header.hasAttribute("data-solid");
+    function onScroll() { header.classList.toggle("is-scrolled", forceSolid || window.scrollY > 40); }
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    if (btn && menu) {
+      btn.addEventListener("click", () => {
+        const open = menu.classList.toggle("hidden") === false;
+        btn.setAttribute("aria-expanded", String(open));
+      });
+      menu.querySelectorAll("[data-mobile-link]").forEach((l) =>
+        l.addEventListener("click", () => { menu.classList.add("hidden"); btn.setAttribute("aria-expanded", "false"); }));
+    }
+  })();
+</script>

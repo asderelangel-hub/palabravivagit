@@ -1,0 +1,70 @@
+---
+/**
+ * Testimonials — Cards de testimonios con foto+nombre+rol del cliente.
+ *
+ * Diseño deliberadamente "editorial": comilla grande de apertura,
+ * tipografía display para el quote, foto chica del cliente en la
+ * esquina inferior. Apila en 2-3 columnas.
+ */
+
+interface Testimonial {
+  quote: string;
+  author: string;
+  role?: string;
+  avatar?: string;
+}
+
+interface Props {
+  title?: string;
+  testimonials: Testimonial[];
+  id?: string;
+}
+
+const { title, testimonials, id } = Astro.props;
+---
+
+<section
+  id={id}
+  class="py-[var(--space-section)] lg:py-[var(--space-section-lg)] bg-[var(--color-surface)]"
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    {title && (
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl max-w-2xl mb-12 lg:mb-16">
+        {title}
+      </h2>
+    )}
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      {testimonials.map((t) => (
+        <figure class="relative bg-white p-7 lg:p-9 rounded-[var(--radius-card)] shadow-[var(--shadow-card)]">
+          <span
+            aria-hidden="true"
+            class="absolute -top-2 left-6 font-display text-7xl leading-none text-[var(--color-accent)] select-none"
+          >&ldquo;</span>
+
+          <blockquote class="font-display text-lg lg:text-xl leading-snug text-[var(--color-ink)] mt-4 mb-6">
+            {t.quote}
+          </blockquote>
+
+          <figcaption class="flex items-center gap-3 mt-auto">
+            {t.avatar && (
+              <img
+                src={t.avatar}
+                alt=""
+                class="w-11 h-11 rounded-full object-cover"
+                loading="lazy"
+                decoding="async"
+              />
+            )}
+            <div>
+              <p class="font-semibold text-[var(--color-ink)]">{t.author}</p>
+              {t.role && (
+                <p class="text-sm text-[var(--color-muted)]">{t.role}</p>
+              )}
+            </div>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>

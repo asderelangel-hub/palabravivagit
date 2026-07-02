@@ -1,0 +1,34 @@
+/* ============================================================
+   PRESET: INDUSTRIAL
+   ============================================================
+   Para: fabricación, construcción, metalmecánica, B2B pesado,
+         talleres, señalética, industrial premium.
+   Personalidad: sólido, masculino, técnico, durable, tradición.
+   Cliente ejemplo: Letreros Pizarro, talleres mecánicos,
+                    constructoras pyme, fabricantes de muebles.
+
+   Características:
+   - Colores fuertes y saturados (rojo industrial + negro carbón)
+   - Tipografía display con peso, serifa o slab condensado
+   - Radius casi sharp (no friendly)
+   - Sombras "duras" tipo offset (look impreso, no glassmorphism)
+   ============================================================ */
+
+@theme {
+  --color-primary: #B8341E;        /* rojo industrial / óxido */
+  --color-secondary: #1A1A1A;      /* negro carbón */
+  --color-accent: #F5C842;         /* amarillo construcción */
+  --color-surface: #F5F4F0;        /* gris cálido / papel craft */
+  --color-ink: #1A1A1A;
+  --color-muted: #525252;
+
+  --font-display: "Tiempos Headline", "Playfair Display", Georgia, serif;
+  --font-body: "Söhne", "Inter Tight", system-ui, sans-serif;
+
+  --radius-card: 0.125rem;         /* casi sharp */
+  --radius-button: 0;              /* totalmente sharp */
+  --shadow-card: 4px 4px 0 0 rgb(26 26 26 / 0.15);  /* offset duro */
+
+  --space-section: 5rem;
+  --space-section-lg: 7rem;
+}

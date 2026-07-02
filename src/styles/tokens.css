@@ -1,0 +1,43 @@
+/* ============================================================
+   JUCUM PALABRA VIVA — TOKENS DE MARCA
+   Fuente de verdad: manual_jucum_palabra_viva.pdf
+   Paleta oficial (Pantone → hex):
+     419 C  #212322  carbón (ink)
+     639 C  #0095C8  azul profundo (primary)
+     637 C  #4EC3E0  turquesa (accent)
+     635 C  #A4DBE8  celeste claro (sky)
+   Tipografía: Poppins (display) + Open Sans (body).
+   ============================================================ */
+
+@theme {
+  /* === COLORES === */
+  --color-primary: #0095c8;        /* azul profundo — títulos, CTA, marca */
+  --color-secondary: #16303a;      /* carbón azulado — fondos oscuros, footer */
+  --color-accent: #4ec3e0;         /* turquesa — acentos vivos, "VIVA" */
+  --color-sky: #a4dbe8;            /* celeste claro — fondos suaves, agua */
+  --color-sky-soft: #eaf6fb;       /* celeste casi blanco — superficies */
+  --color-surface: #f4fbfd;        /* fondo general muy claro */
+  --color-ink: #1a2b33;            /* texto principal (carbón azulado, cálido) */
+  --color-muted: #5a7480;          /* texto secundario, líneas */
+
+  /* === TIPOGRAFÍA === */
+  --font-display: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Open Sans", ui-sans-serif, system-ui, sans-serif;
+
+  /* === CARÁCTER VISUAL (estilo Educa: tarjetas con sombra suave difusa) === */
+  --radius-card: 0.55rem;
+  --radius-button: 0.4rem;
+  --shadow-card: 0 18px 45px -20px rgb(28 55 91 / 0.22);
+  --shadow-soft: 0 12px 30px -16px rgb(28 55 91 / 0.14);
+  --shadow-float: 0 24px 55px -22px rgb(28 55 91 / 0.30);
+  /* navy profundo tipo Educa para bandas oscuras */
+  --color-navy: #123047;
+
+  /* === RITMO DE ESPACIADO === */
+  --space-section: 5rem;
+  --space-section-lg: 8rem;
+
+  /* === GRADIENTES DE AGUA (marca) — uso puntual, no decorativo === */
+  --grad-water: linear-gradient(135deg, #0095c8 0%, #4ec3e0 55%, #a4dbe8 100%);
+  --grad-water-soft: linear-gradient(160deg, #eaf6fb 0%, #d6eef6 100%);
+}

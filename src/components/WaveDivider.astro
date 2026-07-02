@@ -1,0 +1,34 @@
+---
+/**
+ * WaveDivider — separador de olas (patrón de marca "agua viva").
+ * Colócalo al borde de una sección para transicionar de un color a otro.
+ *
+ * props:
+ *  - fill: color de la ola (normalmente el color de la SIGUIENTE sección)
+ *  - flip: voltea verticalmente (para ondas que "cuelgan" desde arriba)
+ *  - class: clases extra
+ */
+interface Props {
+  fill?: string;
+  flip?: boolean;
+  class?: string;
+}
+const { fill = "var(--color-surface)", flip = false, class: cls = "" } = Astro.props;
+---
+<div
+  class={`w-full overflow-hidden leading-[0] ${cls}`}
+  style={flip ? "transform: rotate(180deg);" : ""}
+  aria-hidden="true"
+>
+  <svg
+    class="relative block w-[calc(100%+1.3px)] h-[60px] sm:h-[90px]"
+    viewBox="0 0 1200 120"
+    preserveAspectRatio="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M0,40 C180,110 360,110 600,60 C840,10 1020,10 1200,60 L1200,120 L0,120 Z"
+      style={`fill:${fill}`}
+    />
+  </svg>
+</div>

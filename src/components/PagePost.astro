@@ -1,0 +1,61 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "./Header.astro";
+import Footer from "./Footer.astro";
+import { withBase } from "../lib/base";
+import { getContent, localizePath, type Lang } from "../i18n/content";
+
+interface Props { lang?: Lang; type: "blog" | "devocionales"; entry: any; }
+const { lang = "es", type, entry } = Astro.props;
+const ui = getContent(lang).blogUI;
+const isBlog = type === "blog";
+const locale = { es: "es-CL", en: "en-US", pt: "pt-BR" }[lang];
+const { Content } = await render(entry);
+const d = entry.data;
+const cover = d.cover ? (d.cover.startsWith("/") ? d.cover : "/" + d.cover) : null;
+const backHref = withBase(localizePath(`/${type}`, lang));
+const fmt = (date: Date) => date.toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" });
+---
+<BaseLayout title={`${d.title} — JUCUM Palabra Viva`} description={d.description} ogImage={cover ?? "/og-default.jpg"} lang={lang}>
+  <Header lang={lang} solid={true} />
+  <main class="pt-[4.6rem]">
+    <article class="py-[var(--space-section)]">
+      <div class="container-xl max-w-3xl">
+        <a href={backHref} class="text-[var(--color-primary)] font-semibold text-sm">{ui.back}</a>
+        <p class="eyebrow mt-6 mb-3">{isBlog ? d.category : d.reference}</p>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">{d.title}</h1>
+        <p class="mt-4 text-lg text-[var(--color-muted)]">{d.description}</p>
+        <p class="mt-3 text-sm text-[var(--color-muted)]">{ui.published} {fmt(d.pubDate)}</p>
+
+        {cover && (
+          <div class="mt-8 rounded-[var(--radius-card)] overflow-hidden shadow-[var(--shadow-card)] aspect-[16/9]">
+            <img src={withBase(cover)} alt={d.title} class="ph" />
+          </div>
+        )}
+
+        <div class="prose-pv mt-8">
+          <Content />
+        </div>
+
+        <div class="mt-12 pt-6 border-t border-[color:color-mix(in_srgb,var(--color-ink)_12%,transparent)]">
+          <a href={backHref} class="btn btn-ghost">{ui.back}</a>
+        </div>
+      </div>
+    </article>
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>
+
+<style is:global>
+  .prose-pv { color: var(--color-ink); line-height: 1.75; font-size: 1.08rem; }
+  .prose-pv > * + * { margin-top: 1.15rem; }
+  .prose-pv h2 { font-size: 1.6rem; font-weight: 700; margin-top: 2rem; }
+  .prose-pv h3 { font-size: 1.3rem; font-weight: 700; margin-top: 1.5rem; }
+  .prose-pv a { color: var(--color-primary); text-decoration: underline; text-underline-offset: 2px; }
+  .prose-pv blockquote { border-left: 3px solid var(--color-accent); padding-left: 1.1rem; font-style: italic; color: var(--color-muted); }
+  .prose-pv img { border-radius: var(--radius-card); margin-inline: auto; }
+  .prose-pv ul { list-style: disc; padding-left: 1.25rem; }
+  .prose-pv ol { list-style: decimal; padding-left: 1.25rem; }
+  .prose-pv strong { color: var(--color-ink); font-weight: 700; }
+</style>

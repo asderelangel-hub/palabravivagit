@@ -1,0 +1,60 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "./Header.astro";
+import Hero from "./hero/Hero.astro";
+import About from "./sections/About.astro";
+import Schools from "./sections/Schools.astro";
+import UofN from "./sections/UofN.astro";
+import StatsBand from "./sections/StatsBand.astro";
+import Team from "./sections/Team.astro";
+import Mission from "./sections/Mission.astro";
+import Testimonials from "./sections/Testimonials.astro";
+import Contact from "./sections/Contact.astro";
+import Footer from "./Footer.astro";
+import { getContent, type Lang } from "../i18n/content";
+import { site } from "../data/site";
+
+const { lang = "es" } = Astro.props as { lang?: Lang };
+const t = getContent(lang);
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": ["NGO", "EducationalOrganization"],
+  name: site.name,
+  alternateName: site.legalName,
+  url: site.domain,
+  telephone: site.phoneRaw,
+  email: site.email,
+  inLanguage: lang,
+  description: t.meta.description,
+  address: { "@type": "PostalAddress", streetAddress: "Los Sauces 0505", addressLocality: "Temuco", addressRegion: "La Araucanía", addressCountry: "CL" },
+  parentOrganization: { "@type": "Organization", name: "Juventud con una Misión (YWAM)" },
+  sameAs: [site.socials.instagram, site.socials.facebook, site.socials.youtube],
+};
+---
+<BaseLayout title={t.meta.title} description={t.meta.description} schemaJsonLd={schema} lang={lang}>
+  <Header lang={lang} />
+  <main>
+    <Hero lang={lang} />
+    <About lang={lang} />
+    <Schools lang={lang} />
+    <UofN lang={lang} />
+    <StatsBand lang={lang} />
+    <Team lang={lang} />
+    <Mission lang={lang} />
+    <Testimonials lang={lang} />
+    <Contact lang={lang} />
+  </main>
+  <Footer lang={lang} />
+
+  <script is:inline>
+    (function () {
+      const els = document.querySelectorAll(".reveal");
+      if (!("IntersectionObserver" in window) || !els.length) { els.forEach((e) => e.classList.add("is-visible")); return; }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add("is-visible"); io.unobserve(entry.target); } });
+      }, { threshold: 0.12 });
+      els.forEach((e) => io.observe(e));
+    })();
+  </script>
+</BaseLayout>

@@ -1,0 +1,47 @@
+---
+import { withBase } from "../../lib/base";
+import { getContent, type Lang } from "../../i18n/content";
+const { lang = "es" } = Astro.props as { lang?: Lang };
+const t = getContent(lang).mission;
+---
+<section id="mision">
+  <div class="relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 photo-scrim">
+      <img src={withBase("/fotos/araucania.jpg")} alt="" class="ph" loading="lazy" />
+    </div>
+    <div class="container-xl relative z-10 py-20 lg:py-32">
+      <div class="max-w-2xl text-white reveal">
+        <p class="eyebrow !text-white/85 mb-5">{t.eyebrow}</p>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">{t.heading}</h2>
+        <p class="mt-6 text-lg text-white/85 leading-relaxed">{t.body}</p>
+      </div>
+
+      <div class="mt-12 grid sm:grid-cols-2 gap-6 lg:gap-8 max-w-4xl">
+        {t.cards.map((c) => (
+          <div class="reveal bg-white/10 backdrop-blur-sm border border-white/20 rounded-[var(--radius-card)] p-7">
+            <h3 class="text-xl font-bold text-white">{c.title}</h3>
+            <p class="mt-3 text-white/85 leading-relaxed">{c.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white py-[var(--space-section)] lg:py-[var(--space-section-lg)]">
+    <div class="container-xl">
+      <div class="max-w-3xl reveal">
+        <p class="eyebrow mb-5">{t.sphEyebrow}</p>
+        <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold">{t.sphHeading}</h3>
+        <p class="mt-4 text-lg text-[var(--color-muted)] leading-relaxed">{t.sphBody}</p>
+      </div>
+      <div class="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-x-6 gap-y-6 reveal">
+        {t.spheres.map((s, i) => (
+          <div class="border-t-2 border-[var(--color-sky)] pt-3">
+            <span class="bignum text-sm block">{String(i + 1).padStart(2, "0")}</span>
+            <span class="font-display font-semibold text-[var(--color-ink)] text-[0.98rem] leading-tight block mt-1">{s}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
