@@ -34,11 +34,12 @@ const groups = GROUP_KEYS.map((key, i) => ({
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {g.items.map((s) => {
-            const img = pool[gi++ % pool.length];
+            const fallback = `/fotos/${pool[gi++ % pool.length]}.jpg`;
+            const cover = s.cover ? (s.cover.startsWith("/") ? s.cover : "/" + s.cover) : fallback;
             return (
               <article class="card-lift bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-soft)] overflow-hidden flex flex-col">
                 <div class="relative aspect-[16/10] overflow-hidden">
-                  <img src={withBase(`/fotos/${img}.jpg`)} alt={s.title} class="ph" loading="lazy" />
+                  <img src={withBase(cover)} alt={s.title} class="ph" loading="lazy" />
                   <span class="tag-badge">{s.tag}</span>
                 </div>
                 <div class="p-5 flex flex-col flex-1">

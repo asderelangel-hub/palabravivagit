@@ -14,6 +14,7 @@ const escuelas = defineCollection({
     full: z.string().optional(),       // nombre completo
     desc: z.string(),
     tag: z.string().default("Presencial"),
+    cover: z.string().optional(),      // portada (la elige el CMS; si falta, usa el set por defecto)
     date: z.string().optional(),       // "Inicia 21 sep 2026"
     group: z.enum(["internas", "verano", "extensivas"]).default("internas"),
     order: z.coerce.number().default(0),

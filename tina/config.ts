@@ -58,6 +58,7 @@ export default defineConfig({
         { type: "string", name: "title", label: "Sigla / nombre corto", isTitle: true, required: true },
         { type: "string", name: "full", label: "Nombre completo" },
         { type: "string", name: "desc", label: "Descripción", required: true, ui: { component: "textarea" } },
+        { type: "image", name: "cover", label: "Imagen de portada" },
         { type: "string", name: "tag", label: "Modalidad", options: tagByLang[lang] },
         { type: "string", name: "date", label: "Fecha de inicio (texto libre)" },
         { type: "string", name: "group", label: "Grupo", options: groupOptions },
