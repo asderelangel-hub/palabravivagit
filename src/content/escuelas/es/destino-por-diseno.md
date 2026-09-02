@@ -4,7 +4,7 @@ tag: "Taller"
 desc: "Descubre el propósito de Dios para tu vida y tus próximos pasos."
 cover: "/images/leyendo.jpg"
 group: "extensivas"
-order: "3"
+order: 3
 ---
 
 

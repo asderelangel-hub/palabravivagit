@@ -4,7 +4,7 @@ tag: "Online"
 desc: "Recorre la historia bíblica en orden, de principio a fin."
 cover: "/images/adoracion.jpg"
 group: "extensivas"
-order: "4"
+order: 4
 ---
 
 
