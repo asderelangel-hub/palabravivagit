@@ -67,3 +67,5 @@ Like Uzzah, we are often drawn in our lives by the temptation to stand out, to b
 Let us not be deceived by the appealing currents of this world, which say that a little lie here, a little sin there, are acceptable. God is unchanging in His entire character, and in His purposes and plans. Let us not do as David did, who wanted to please people more than God, and threw a lovely celebration, with the small inconvenience of taking the place of the main character. Let us learn from Uzzah, who set aside two great principles, forgot that the values of God's kingdom are non-negotiable, and by trying to defend God with his own "best," touched His presence improperly, and was undone by his own haste.
 
 "I know that everything God does will remain forever; nothing can be added to it, and nothing taken from it; and God does this so that men will fear before Him." — Ecclesiastes 3:14
+
+Túlio Fernandes Morais
