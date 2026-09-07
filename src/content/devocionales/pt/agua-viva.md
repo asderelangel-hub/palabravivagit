@@ -16,7 +16,7 @@ Eu tive o privilégio de crescer em um lar cristão, e desde bem pequeno, conhec
 
 Deus havia escolhido os Israelitas como povo santo, por meio do patriarca Abraão (Gênesis 12.1-3). Seus descendentes viviam como escravos no Egito, e foram libertos (Êxodo 6.6,7) Deus habitou entre eles, e lhes deu parâmetros de santidade e integridade, apartando-os dos demais povos da terra (Levítico 20.26) Lhes deu uma terra para que morassem e ali o adorassem (Josué 21.43,44) Deus colocou um rei sobre eles, e se consolidaram como nação (I Samuel 8.10-17). Quando ainda vivam nômades no deserto de Sinai, habitavam em tendas; e o Deus todo-poderoso Decidiu morar também em uma tenda, que foi chamada TABERNÁCULO. Esta tenda possuía muitos utensílios e mobiliários, mas havia uma em especial:
 
- A Arca da Aliança
+A Arca da Aliança
 
 Esse artefato era o mais sagrado de todos, representava a presença de Deus, e como seu próprio nome já diz, a aliança de Deus com seu povo. Era de madeira de acácia, coberto com ouro por dentro e por fora. Sua tampa de chamava o PROPOCIATÓRIO. Esculpida com a figura de dois querubins, um em frente ao outro, cobrindo seus rostos com suas asas, tocando-se com suas pontas. Aí o Sumo sacerdote derramava o sangue de um cordeiro imaculado, uma vez ao ano, durante a festa chamada “Yonk Pur”, o dia da expiação do pecado de toda a nação. A arca sempre ia adiante do povo em suas peregrinações e suas batalhas; mostrando que aonde quer que fossem, a presença de Deus ia primeiro, e os inimigos viam com quem iam se enfrentar, não simplesmente com um povo, mas com o SENHOR dos exércitos. Dentro da arca haviam três objetos:
 
@@ -69,3 +69,5 @@ Não deixemo-nos enganar com as atraentes correntes desse mundo, que dizem que u
 “Sei que tudo quanto Deus faz durará eternamente; nada se lhe pode acrescentar, e nada se lhe pode tirar; e isto faz Deus para que os homens temam diante dele.”
 
 Eclesiastes 3.14
+
+Túlio Fernandes Morais
