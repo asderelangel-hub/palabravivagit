@@ -68,3 +68,5 @@ No nos dejemos engañar con las atractivas corrientes de este mundo, que dicen q
 
 \> "Sé que todo lo que Dios hace será perpetuo; nada se le puede añadir, ni nada se le puede quitar; y lo hace Dios para que delante de él teman los hombres."
 \> — Eclesiastés 3:14
+
+Tulio Fernandes Morais
