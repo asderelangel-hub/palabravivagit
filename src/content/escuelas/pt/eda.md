@@ -11,6 +11,6 @@ cover: /images/leyendo.jpg
 tag: Presencial
 date: 1 de Março de 2027
 group: internas
-order: 3
+order: 2
 ---
 
